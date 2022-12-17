@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import ru.gb.homework.exception.data.GenerateArray;
 import ru.gb.homework.exception.service.impl.ArrayService;
 
+import java.util.List;
+
 @Controller
 public class TaskController {
     private final ArrayService arrayService;
@@ -22,6 +24,6 @@ public class TaskController {
 
     @PostConstruct
     public void doing() {
-        arrayService.validateArray(generateArray.createArray(size));
+        List<Integer> integerList = arrayService.validateArray(generateArray.createArray(size));
     }
 }
