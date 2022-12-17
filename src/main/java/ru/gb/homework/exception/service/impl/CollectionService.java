@@ -2,13 +2,13 @@ package ru.gb.homework.exception.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.gb.homework.exception.service.IArrayService;
+import ru.gb.homework.exception.service.ICollectionService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ArrayService implements IArrayService {
+public class CollectionService implements ICollectionService {
 
     @Value(value = "${array-service.exception.array-is-null}")
     private String nullMessage;
@@ -20,10 +20,10 @@ public class ArrayService implements IArrayService {
     private String oneElementNull;
 
     @Value(value = "${array-service.exception.several-elements-are-null}")
-    private String severalElementsNull;
+    private String[] severalElementsNull;
 
     @Override
-    public List<Integer> validateArray(List<Integer> integerList) {
+    public List<Integer> validateCollection(List<Integer> integerList) {
         if (integerList == null) {
             throw new IllegalStateException(nullMessage);
         }
@@ -39,10 +39,10 @@ public class ArrayService implements IArrayService {
         if (indexes.size() == 1) {
             throw new IllegalStateException(oneElementNull);
         } else if (indexes.size() > 1) {
-            StringBuilder stringBuilder = new StringBuilder(severalElementsNull)
+            StringBuilder stringBuilder = new StringBuilder(severalElementsNull[0])
                     .append(": ");
             for (Integer index : indexes) {
-                stringBuilder.append("element with index: ").append(index).append(", ");
+                stringBuilder.append(severalElementsNull[1]).append(" ").append(index).append(", ");
             }
             stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length() - 1, ".");
             throw new IllegalStateException(stringBuilder.toString());
